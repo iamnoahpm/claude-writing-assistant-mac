@@ -22,8 +22,7 @@
       "target": "dmg"
     },
     "dmg": {
-      "title": "Claude Assistant",
-      "icon": "icon.icns"
+      "title": "Claude Assistant"
     }
   }
 }
