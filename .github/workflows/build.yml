@@ -1,0 +1,39 @@
+name: Build and Release
+# ↑ This is just a friendly name for your workflow
+
+on:
+  push:
+    branches: [ main ]  # Trigger when you push to main branch
+  workflow_dispatch:    # Adds a "Run workflow" button in GitHub
+
+jobs:                   # List of tasks to run
+  build:                # Job name
+    runs-on: macos-latest  # Use a Mac computer in GitHub's cloud
+    
+    steps:              # List of individual actions
+    - uses: actions/checkout@v3     # Download your code
+    
+    - name: Setup Node.js          # Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'         # Use Node.js version 18
+    
+    - name: Install dependencies   # Run: npm install
+      run: npm install
+    
+    - name: Build DMG             # Run: npm run dist
+      run: npm run dist
+      
+    - name: Upload DMG            # Save the built DMG file
+      uses: actions/upload-artifact@v3
+      with:
+        name: Claude-Assistant-DMG
+        path: dist/*.dmg          # Look for DMG files in dist folder
+    
+    - name: Create Release        # Create a GitHub release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v1.0.${{ github.run_number }}  # Auto version number
+        name: Release v1.0.${{ github.run_number }}
+        files: dist/*.dmg         # Attach the DMG file
+        token: ${{ secrets.GITHUB_TOKEN }}      # GitHub permission
