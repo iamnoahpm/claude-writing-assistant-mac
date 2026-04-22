@@ -11,11 +11,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Install dependencies
         run: npm install
       - name: Build DMG
-        run: npm run build
+        run: npm run dist
       - name: Upload DMG artifact
         uses: actions/upload-artifact@v4
         with:
