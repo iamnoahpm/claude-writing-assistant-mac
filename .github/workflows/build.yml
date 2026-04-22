@@ -25,7 +25,7 @@ jobs:                   # List of tasks to run
       run: npm run dist
       
     - name: Upload DMG            # Save the built DMG file
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Claude-Assistant-DMG
         path: dist/*.dmg          # Look for DMG files in dist folder
